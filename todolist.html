@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-image: url('https://static8.depositphotos.com/1003924/908/i/600/depositphotos_9082926-stock-photo-blank-paper-note-on-wood.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    #content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #taskList {
+      list-style-type: none;
+      margin-bottom: 20px;
+    }
+
+    footer {
+      background-color: #f2f2f2;
+      padding: 10px 20px;
+      text-align: center;
+      width: 100%;
+    }
+        
+    #logoutButton {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #ff5a5f;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #logoutButton:hover {
+      background-color: #3d3535;
+    }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <h1>To-Do List</h1>
+
+     <h1>Welcome Kavin.V</h1>
+     <button id="logoutButton" onclick="logout()">logout</button>
+
+    <input type="text" id="taskInput" placeholder="New Task"><br>
+    <input type="date" id="dueDateInput"><br>
+    <button onclick="addTask()">Add Task</button><br>
+    <ul id="taskList"></ul>
+
+  </div>
+
+  <footer>
+    &copy; 2023 To-Do List
+  </footer>
+
+  <script>
+    function addTask() {
+      var taskInput = document.getElementById("taskInput");
+      var dueDateInput = document.getElementById("dueDateInput");
+      var taskList = document.getElementById("taskList");
+
+      var newTask = document.createElement("li");
+      var checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      var taskName = document.createElement("span");
+      var dueDate = document.createElement("span");
+
+      taskName.innerText = taskInput.value;
+      dueDate.innerText = "Due: " + dueDateInput.value;
+
+      newTask.appendChild(checkbox);
+      newTask.appendChild(taskName);
+      newTask.appendChild(dueDate);
+      var deleteButton = document.createElement("button");
+      deleteButton.innerText =   "Delete";
+      deleteButton.onclick = function() {
+        // Call a function to remove the task from the list
+        taskList.removeChild(newTask);
+      };
+      newTask.appendChild(deleteButton);
+
+      taskList.appendChild(newTask);
+
+      taskInput.value = "";
+      dueDateInput.value = "";
+    }
+    function logout() {
+      // Navigate to the login page
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
