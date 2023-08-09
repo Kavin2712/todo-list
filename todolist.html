@@ -68,54 +68,94 @@
 <body>
   <div id="content">
     <h1>To-Do List</h1>
-
-     <h1>Welcome Kavin.V</h1>
-     <button id="logoutButton" onclick="logout()">logout</button>
-
+    <h1>Welcome Kavin.V</h1>
+    <button id="logoutButton" onclick="logout()">Logout</button>
+    
     <input type="text" id="taskInput" placeholder="New Task"><br>
     <input type="date" id="dueDateInput"><br>
+    <input type="time" id="dueTimeInput"><br>
     <button onclick="addTask()">Add Task</button><br>
     <ul id="taskList"></ul>
+  </div>
+  <div>
+    <button class="button10" onclick="filterTasks('all')">All Tasks</button>
+    <button class="button10" onclick="filterTasks('incomplete')">Incomplete Tasks</button>
+    <button class="button10" onclick="filterTasks('completed')">Completed Tasks</button><br><br>
 
   </div>
 
   <footer>
-    &copy; 2023 To-Do List
+    &copy; 2023 All the rights are reserved kd
   </footer>
 
   <script>
+    function filterTasks(filterType) {
+      var taskList = document.getElementById("taskList");
+      var tasks = taskList.getElementsByTagName("li");
+
+      for (var i = 0; i < tasks.length; i++) {
+        var task = tasks[i];
+        var checkbox = task.querySelector("input[type='checkbox']");
+        var isCompleted = checkbox.checked;
+
+        if (filterType === 'all') {
+          task.style.display = "block"; 
+        } else if (filterType === 'incomplete') {
+          if (!isCompleted) {
+            task.style.display = "block"; 
+          } else {
+            task.style.display = "none";
+          }
+        } else if (filterType === 'completed') {
+          if (isCompleted) {
+            task.style.display = "block"; 
+          } else {
+            task.style.display = "none";
+          }
+        }
+      }
+    } 
     function addTask() {
       var taskInput = document.getElementById("taskInput");
       var dueDateInput = document.getElementById("dueDateInput");
-      var taskList = document.getElementById("taskList");
+      var dueTimeInput = document.getElementById("dueTimeInput");
+      var taskList = document.getElementById("taskList"); 
+ 
 
       var newTask = document.createElement("li");
       var checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       var taskName = document.createElement("span");
       var dueDate = document.createElement("span");
-
       taskName.innerText = taskInput.value;
-      dueDate.innerText = "Due: " + dueDateInput.value;
+      dueDate.innerText = "   Due: " + dueDateInput.value + " at " + dueTimeInput.value;
 
       newTask.appendChild(checkbox);
       newTask.appendChild(taskName);
-      newTask.appendChild(dueDate);
+      newTask.appendChild(dueDate); 
       var deleteButton = document.createElement("button");
       deleteButton.innerText =   "Delete";
+      deleteButton.className="delete";
       deleteButton.onclick = function() {
-        // Call a function to remove the task from the list
+        
         taskList.removeChild(newTask);
       };
       newTask.appendChild(deleteButton);
+      
 
       taskList.appendChild(newTask);
 
       taskInput.value = "";
       dueDateInput.value = "";
     }
+
+  function markAsFinished(taskItem) {
+    taskItem.classList.toggle("finished");
+  }
+
+    
+
     function logout() {
-      // Navigate to the login page
       window.location.href = "login.html";
     }
   </script>
